@@ -1,0 +1,15 @@
+import requests
+import os
+pip install pandas
+import pandas as pd
+download_dir = "download_path"
+csv_file = "upload_file_path_file_name.csv"
+df = pd.read_csv(csv_file)
+urls = df['column_that_contain_urls'].tolist()
+for i, url in enumerate(urls):
+    response = requests.get(url)
+    file_name = url.split('/')[-1].replace('.pdf', '')
+    with open(os.path.join(download_dir, f'{file_name}.pdf'), 'wb') as file:
+        file.write(response.content)
+        print(f'Downloaded {file_name}.pdf to {download_dir}')
+print("All files have been downloaded!")
